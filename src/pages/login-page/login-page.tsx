@@ -37,7 +37,7 @@ export function LoginPage() {
       <div className="page__login-container container">
         <section className="login">
           <h1 className="login__title">Sign in</h1>
-          <form className="login__form form">
+          <form className="login__form form" onSubmit={login}>
             <div className="login__input-wrapper form__input-wrapper">
               <label className="visually-hidden">E-mail</label>
               <input
@@ -65,7 +65,6 @@ export function LoginPage() {
             <button
               className="login__submit form__submit button"
               type="submit"
-              onClick={login}
             >
                 Sign in
             </button>
