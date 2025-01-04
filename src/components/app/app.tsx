@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ import { OfferPage } from '../../pages/offer-page/offer-page.tsx';
 import { PrivateRoute } from '../private-route/private-route';
 import { Layout } from '../layout/layout';
 import { store } from '../../store';
-import {authorizationAction, fetchFavoritesAction, fetchOrdersAction} from '../../store/api-actions.ts';
+import { authorizationAction, fetchFavoritesAction, fetchOrdersAction } from '../../store/api-actions.ts';
 
 
 export function App() {
