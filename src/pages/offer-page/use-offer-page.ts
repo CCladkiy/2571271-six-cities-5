@@ -39,6 +39,6 @@ export function useOfferPage(): OfferPageState {
       .finally(() => {
         setState({ ...state, isLoading: false });
       });
-  }, [dispatch, id]);
+  }, [dispatch, id, state]);
   return { ...currentOfferState, ...state };
 }
