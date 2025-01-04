@@ -39,14 +39,14 @@ export function OfferPage() {
     return <Spinner />;
   }
 
-  const offerLocation = {name: offer.id, point: offer.location};
+  const offerLocation = {name: offer.id, location: offer.location};
 
   const displayedOffers = nearbyOffers
     .filter((off) => off.id !== offer.id)
     .slice(0, 3);
 
   const nearPoints = displayedOffers
-    .map((off) => ({name: off.id, point: off.location}))
+    .map((off) => ({name: off.id, location: off.location}))
     .concat(offerLocation);
 
   return (

@@ -22,8 +22,8 @@ export function Map({city, selectedPoint, points, className}: MapProps) {
     if (map) {
       points.forEach((loc) => {
         leaflet.marker({
-          lat: loc.point.latitude,
-          lng: loc.point.longitude
+          lat: loc.location.latitude,
+          lng: loc.location.longitude
         },
         {
           icon: loc.name === selectedPoint?.name

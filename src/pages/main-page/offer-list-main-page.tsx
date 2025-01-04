@@ -15,7 +15,7 @@ type OfferListProps = {
 export function OfferListMainPage({ offers, city }: OfferListProps) {
   const [selectedId, setSelectedId] = useState<Nullable<string>>();
 
-  const points = offers.map((o) => ({ name: o.id, point: o.location }));
+  const points = offers.map((o) => ({ name: o.id, location: o.location }));
   return (
     <>
       <section className="cities__places places">
