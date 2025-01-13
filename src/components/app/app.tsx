@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
@@ -13,16 +13,23 @@ import { PrivateRoute } from '../private-route/private-route';
 import { Layout } from '../layout/layout';
 import { store } from '../../store';
 import { authorizationAction, fetchFavoritesAction, fetchOrdersAction } from '../../store/api-actions.ts';
+import {Spinner} from '../spinner/spinner.tsx';
 
 
 export function App() {
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     (async ()=> {
       store.dispatch(fetchOrdersAction());
+      setIsLoading(true);
       await store.dispatch(authorizationAction());
       await store.dispatch(fetchFavoritesAction());
+      setIsLoading(false);
     })();
   }, []);
+  if (isLoading){
+    return Spinner();
+  }
 
   return (
     <Provider store={store}>
@@ -30,15 +37,14 @@ export function App() {
         <Routes>
           <Route element={<Layout />}>
             <Route index path={AppRoutes.Root} element={<MainPage />} />
-            <Route path={AppRoutes.Login} element={<LoginPage />}></Route>
+            <Route path={AppRoutes.Login} element={<LoginPage />} />
             <Route element={<PrivateRoute />}>
-              <Route path={AppRoutes.Favorites} element={<FavoritesPage />}></Route>
+              <Route path={AppRoutes.Favorites} element={<FavoritesPage />} />
             </Route>
             <Route path={AppRoutes.Offer}
               element={<OfferPage />}
-            >
-            </Route>
-            <Route path='*' element={<NotFound />}></Route>
+            />
+            <Route path='*' element={<NotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>

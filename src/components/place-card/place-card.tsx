@@ -10,6 +10,7 @@ import { Stars } from '../stars/stars.tsx';
 import { RatingClasses } from '../../constants/constants.ts';
 import { CardBookmark } from './bookmark.tsx';
 
+
 type PlaceCardProps = OfferList & {
   cardType: CardTypes;
   onHover?: (id: Nullable<string>) => void;
@@ -31,7 +32,6 @@ export function PlaceCard({
   width,
   height
 }: PlaceCardProps) {
-
   const singleOfferUrl = AppRoutes.Offer.replace(':id', id);
 
   return (

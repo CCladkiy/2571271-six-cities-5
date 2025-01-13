@@ -19,6 +19,7 @@ import { AuthStatus } from '../../constants/constants.ts';
 import { clearOffer } from '../../slices/current-offer-slice.ts';
 
 export function OfferPage() {
+
   const authStatus = useAppSelector((state) => state.auth.authorizationStatus);
   const { offer, comments, nearbyOffers, error, isLoading } = useOfferPage();
   const navigate = useNavigate();
@@ -29,24 +30,24 @@ export function OfferPage() {
       navigate(AppRoutes.NotFound);
     }
   }, [error, navigate, offer, isLoading]);
+
   useEffect(
     () => () => {
       dispatch(clearOffer());
     },
     [dispatch]
   );
+
   if (isLoading || offer === undefined) {
     return <Spinner />;
   }
 
   const offerLocation = {name: offer.id, location: offer.location};
-
   const displayedOffers = nearbyOffers
-    .filter((off) => off.id !== offer.id)
+    .filter((o) => o.id !== offer.id && o.city.name === offer.city.name)
     .slice(0, 3);
-
-  const nearPoints = displayedOffers
-    .map((off) => ({name: off.id, location: off.location}))
+  const nearbyPoints = displayedOffers
+    .map((o) => ({name: o.id, location: o.location}))
     .concat(offerLocation);
 
   return (
@@ -57,7 +58,7 @@ export function OfferPage() {
             <div className="offer__gallery">
               {offer.images.map((img) => (
                 <div className="offer__image-wrapper" key={img}>
-                  <img className="offer__image" src={img} alt="Photo studio" />
+                  <img className="offer__image" src={img} alt="Photo studio"/>
                 </div>
               ))}
             </div>
@@ -120,7 +121,7 @@ export function OfferPage() {
           <div className={styles['offer__map-wrapper']}>
             <Map
               city={offer.city}
-              points={nearPoints}
+              points={nearbyPoints}
               selectedPoint={offerLocation}
               className="offer__map map"
             />

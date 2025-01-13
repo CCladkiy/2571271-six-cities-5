@@ -8,15 +8,20 @@ import { Nullable } from 'vitest';
 import { useMap } from './use-map.tsx';
 
 type MapProps = {
-    city: Location;
-    selectedPoint: Nullable<Location>;
-    points: Location[];
-    className?: string;
-  }
+  city: Location;
+  selectedPoint: Nullable<Location>;
+  points: Location[];
+  className?: string;
+}
 
 export function Map({city, selectedPoint, points, className}: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  useEffect(() => {
+    if (map) {
+      map.setView({ lat: city.location.latitude, lng: city.location.longitude}, city.location.zoom);
+    }
+  }, [map, city]);
 
   useEffect(() => {
     if (map) {
@@ -33,7 +38,7 @@ export function Map({city, selectedPoint, points, className}: MapProps) {
           .addTo(map);
       });
     }
-  }, [map, points, selectedPoint?.name]);
+  }, [map, points]);
 
-  return <div style={{height: '100%'}} ref={mapRef} className={className} />;
+  return <div style={{height: '100%'}} ref={mapRef} className={className}></div>;
 }

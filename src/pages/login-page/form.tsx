@@ -11,17 +11,20 @@ export function Form() {
     login: '',
     password: '',
   });
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     setFormData({ ...formData, [name]: value });
   };
+
   const login = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(loginAction(formData));
     navigate(AppRoutes.Root);
   };
+
   return (
     <form className="login__form form" onSubmit={login}>
       <div className="login__input-wrapper form__input-wrapper">
